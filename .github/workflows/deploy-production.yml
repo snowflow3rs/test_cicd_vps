@@ -2,21 +2,18 @@ name: production
 
 on:
   push:
-    branches: [ "main" ]
-  # if needed
+    branches: ["main"]
+  # If needed
   # pull_request:
-  #   branches: [ "main" ]
+  #   branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
-        # 22.12.0
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        # Supported Node.js versions
 
     steps:
     - uses: actions/checkout@v4
@@ -25,33 +22,36 @@ jobs:
       with:
         node-version: 22.12.0
         cache: 'npm'
-   # if have ENV
+
+    # Optional: If you have ENV variables
     # - name: Create env
     #   uses: echo "${{ secrets.ENV_PRODUCTION }}" > .env
+
     - run: npm ci
     - run: npm run build --if-present
-    #test
+    # Uncomment to run tests
     # - run: npm test
-deploy:
-  runs-on: ubuntu-latest
-  needs: build
-  steps:
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@v1.2.0
-      with:
-        host: ${{ secrets.HOST }}
-        username: linuxserver.io
-        password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
-        script: |
-           export NVM_DIR=~/.nvm
-           source ~/.nvm/nvm.sh
-           cd ~/test_cicd_vps
-           git fetch --all
-           git reset --hard origin/main
-         # if have env
-         #  echo "${{ secrets.ENV_PRODUCTION }}" > .env
-           npm ci
-           npm run build
-           pm2 restart all
-           pm2 start npm --name "vite-app" -- run dev
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Executing remote SSH commands using password
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: linuxserver.io
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd ~/test_cicd_vps
+            git fetch --all
+            git reset --hard origin/main
+            # Optional: If you have env
+            # echo "${{ secrets.ENV_PRODUCTION }}" > .env
+            npm ci
+            npm run build
+            pm2 restart all
+            pm2 start npm --name "vite-app" -- run dev
