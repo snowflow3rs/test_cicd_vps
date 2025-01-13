@@ -27,6 +27,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Debug Connectivity
+        run: |
+          echo "Testing connectivity to the VPS..."
+          ping -c 4 ${{ secrets.HOST_PROD }} || echo "Ping failed"
+          nc -zv ${{ secrets.HOST_PROD }} 22 || echo "Port 22 not accessible"
       - name: Executing remote SSH commands using password
         uses: appleboy/ssh-action@v1.2.0
         with:
