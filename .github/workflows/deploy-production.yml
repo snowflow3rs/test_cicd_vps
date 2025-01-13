@@ -34,12 +34,4 @@ jobs:
           username: ${{ secrets.USERNAME_PROD }}
           port: 22
           script: |
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-            cd project/test_cicd_vps
-            git fetch --all
-            git reset --hard origin/main
-            npm i --force
-            npm run build
-            # pm2 restart all
-            # pm2 start npm --name "vite-app" -- run dev
+            ls -a
