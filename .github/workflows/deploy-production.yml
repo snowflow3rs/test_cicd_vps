@@ -3,8 +3,6 @@ name: Production Deployment
 on:
   push:
     branches: ["main"]
-  # pull_request:
-  #   branches: ["main"]
 
 jobs:
   build:
@@ -25,18 +23,18 @@ jobs:
       - name: Build
         run: npm run build
 
-deploy:
-  runs-on: ubuntu-latest
-  needs: build
-  steps:
-    - name: Executing remote SSH commands using password
-      uses: appleboy/ssh-action@v1.2.0
-      with:
-        host: ${{ secrets.HOST_PROD }}
-        username: ${{ secrets.USERNAME_PROD }}
-        password: ${{ secrets.PASSWORD_PROD }}
-        port: 22
-        script: |
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Executing remote SSH commands using password
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOST_PROD }}
+          username: ${{ secrets.USERNAME_PROD }}
+          password: ${{ secrets.PASSWORD_PROD }}
+          port: 22
+          script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             cd project/test_cicd_vps
@@ -44,5 +42,5 @@ deploy:
             git reset --hard origin/main
             npm i --force
             npm run build
-          # pm2 restart all
-          # pm2 start npm --name "vite-app" -- run dev
+            # pm2 restart all
+            # pm2 start npm --name "vite-app" -- run dev
