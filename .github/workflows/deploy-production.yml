@@ -32,6 +32,7 @@ jobs:
         with:
           host: ${{ secrets.HOST_PROD }}
           username: ${{ secrets.USERNAME_PROD }}
+          password: ${{ secrets.PASSWORD_PROD }}
           port: 22
           script: |
             ls -a
