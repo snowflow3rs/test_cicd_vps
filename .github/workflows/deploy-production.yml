@@ -39,19 +39,17 @@ jobs:
       - name: Executing remote SSH commands using password
         uses: appleboy/ssh-action@v1.2.0
         with:
-         host: ${{ secrets.HOST }}
-         username: ${{ secrets.USERNAME }}
-         password: ${{ secrets.PASSWORD }}
-         port: ${{ secrets.PORT }}
-         script: |
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-            cd project/test_cicd_vps
-            # git fetch --all
-            # git reset --hard origin/main
-            # Optional: If you have env
-            # echo "${{ secrets.ENV_PRODUCTION }}" > .env
-            npm i
-            npm run build
-            pm2 restart all
+          host: ${{ secrets.HOST_PROD }}
+          username: ${{ secrets.USERNAME_PROD }}
+          password: ${{ secrets.PASSWORD_PROD }}
+          port: ${{ secrets.PORT_PROD }}
+          script: |
+             export NVM_DIR=~/.nvm
+             source ~/.nvm/nvm.sh
+             cd project/test_cicd_vps
+             git fetch --all
+             git reset --hard origin/main
+             npm i
+             npm run build
+             pm2 restart all
             # pm2 start npm --name "vite-app" -- run dev
