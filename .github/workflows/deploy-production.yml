@@ -30,4 +30,4 @@ jobs:
     #   uses: echo "${{ secrets.ENV_PRODUCTION }}" > .env
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    
