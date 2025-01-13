@@ -47,11 +47,11 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             cd project/test_cicd_vps
-            git fetch --all
-            git reset --hard origin/main
+            # git fetch --all
+            # git reset --hard origin/main
             # Optional: If you have env
             # echo "${{ secrets.ENV_PRODUCTION }}" > .env
-            npm ci
+            npm i
             npm run build
             pm2 restart all
-            pm2 start npm --name "vite-app" -- run dev
+            # pm2 start npm --name "vite-app" -- run dev
