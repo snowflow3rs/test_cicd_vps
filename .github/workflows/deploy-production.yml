@@ -46,7 +46,7 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd ~/test_cicd_vps
+            cd project/test_cicd_vps
             git fetch --all
             git reset --hard origin/main
             # Optional: If you have env
