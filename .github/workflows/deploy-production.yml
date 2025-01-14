@@ -33,7 +33,7 @@ jobs:
           ping -c 4 ${{ secrets.HOST_PROD }} || echo "Ping failed"
           nc -zv ${{ secrets.HOST_PROD }} 22 || echo "Port 22 not accessible"
       - name: Executing remote SSH commands using password
-        uses: appleboy/ssh-action@v1.2.0
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST_PROD }}
           username: ${{ secrets.USERNAME_PROD }}
