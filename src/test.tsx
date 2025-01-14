@@ -10,28 +10,28 @@ i18n
     resources: {
       en: {
         translation: {
-          "welcome": "Welcome to our multi-language app!",
+          "welcome": "Welcome to our multi-language app!2",
           "choose": "Choose a language:",
           "greeting": "Hello, world!"
         }
       },
       es: {
         translation: {
-          "welcome": "¡Bienvenido a nuestra aplicación multilingüe!",
+          "welcome": "¡Bienvenido a nuestra aplicación multilingüe!2",
           "choose": "Elige un idioma:",
           "greeting": "¡Hola, mundo!"
         }
       },
       fr: {
         translation: {
-          "welcome": "Bienvenue dans notre application multilingue !",
+          "welcome": "Bienvenue dans notre application multilingue !2",
           "choose": "Choisissez une langue :",
           "greeting": "Bonjour, le monde !"
         }
       },
       vi: {
         translation: {
-          "welcome": "Chào mừng bạn đến với ứng dụng đa ngôn ngữ của chúng tôi!",
+          "welcome": "Chào mừng bạn đến với ứng dụng đa ngôn ngữ của chúng tôi! 2",
           "choose": "Chọn một ngôn ngữ:",
           "greeting": "Xin chào, thế giới!"
         }

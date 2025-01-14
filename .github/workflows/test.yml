@@ -1,0 +1,41 @@
+name: Deploy React App to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Node.js environment
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 22 # Node.js version phù hợp với dự án của bạn
+
+    # Step 3: Install dependencies and build project
+    - name: Install dependencies and build
+      run: |
+        npm ci
+        npm run build
+
+    # Step 4: Deploy to VPS
+    - name: Deploy to VPS
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        key: ${{ secrets.VPS_KEY }}
+        script: |
+          cd /path/to/project/on/vps
+          git pull origin main
+          npm ci
+          npm run build
+          pm2 restart app-name || pm2 start dist/app.js --name app-name
